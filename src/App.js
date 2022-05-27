@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+export function replaceCamelCaseWithSpaces(coloreName) {
+  return coloreName.replace(/\B([A-Z])\B/g, " $1");
+}
 
 function App() {
+  const [buttonColor, setButtonColor] = useState("red");
+  const [isChecked, setIsChecked] = useState(false);
+
+  const toggleButtonColor = () => {
+    setButtonColor((prevColor) => (prevColor === "red" ? "blue" : "red"));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button
+        style={{ backgroundColor: buttonColor }}
+        disabled={isChecked}
+        onClick={toggleButtonColor}
+      >
+        change to {buttonColor === "red" ? "blue" : "red"}
+      </button>
+      <input
+        type="checkbox"
+        onChange={(e) => setIsChecked(e.target.checked)}
+        checked={isChecked}
+        aria-checked={isChecked}
+      />
     </div>
   );
 }
